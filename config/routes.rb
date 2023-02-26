@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'tasks/index'
   root 'tasks#index'
+
+  # タスク機能
+  resources :tasks
 
   # ログイン機能
   get '/login', to: 'sessions#new'

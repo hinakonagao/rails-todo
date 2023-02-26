@@ -1,0 +1,10 @@
+<h1>新規タスク作成</h1>
+
+<%= form_with(model: @task) do |f| %>
+  <div><%= f.label :title %></div>
+  <div><%= f.text_field :title %></div>
+  <div><%= f.submit %></div>
+  <%= f.hidden_field :user_id, :value => @current_user.id %> <%# ログイン中のユーザーid %>
+<% end %>
+
+<%= link_to '戻る', tasks_path %>

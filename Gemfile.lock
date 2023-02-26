@@ -91,6 +91,7 @@ GEM
     erubi (1.12.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    htmlbeautifier (1.4.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -210,10 +211,11 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bcrypt (= 3.1.12)
+  bcrypt (~> 3.1.7)
   bootsnap
   capybara
   debug
+  htmlbeautifier
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)

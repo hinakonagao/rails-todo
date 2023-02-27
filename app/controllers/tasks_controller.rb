@@ -19,6 +19,19 @@ class TasksController < ApplicationController
     redirect_to tasks_path
   end
 
+  # タスク編集画面の表示
+  def edit
+    @task = Task.find(params[:id]) # リクエストURL内{id}部分の数値をparams[:id]で取り出す
+    # TODO: 不正なidを指定された場合の処理
+  end
+
+  # タスクの更新
+  def update
+    @task = Task.find(params[:id])
+    @task.update(task_params)
+    redirect_to tasks_url
+  end
+
   private
 
   def task_params

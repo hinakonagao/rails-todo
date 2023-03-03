@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params) # タスクのインスタンスを生成
     if @task.save
-      redirect_to tasks_path
+      redirect_to root_url
     else
       render 'new', status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class TasksController < ApplicationController
     @task = Task.find_by(id: params[:id]) # リクエストURL内{id}部分の数値をparams[:id]で取り出す
     if !@task || @task.user_id != current_user.id
       flash[:danger] = 'リクエストが不正です。'
-      redirect_to tasks_path, status: :see_other
+      redirect_to root_url, status: :see_other
     end
   end
 
@@ -63,9 +63,9 @@ class TasksController < ApplicationController
 
   # 正しいユーザーかどうか確認
   def correct_user
-    if current_user.id != params[:user_id]
+    if current_user.id != params[:task][:user_id].to_i
       flash[:danger] = 'リクエストが不正です。'
-      redirect_to tasks_path, status: :see_other
+      redirect_to root_url, status: :see_other
     end
   end
 end

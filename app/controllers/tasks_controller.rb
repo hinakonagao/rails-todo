@@ -1,8 +1,7 @@
 class TasksController < ApplicationController
   # 一覧画面（ログイン中のユーザーのタスク）
   def index
-    # TODO: ログイン中かどうかの判定
-    @tasks = Task.where(user_id: current_user.id)
+    @tasks = Task.where(user_id: current_user.id) if logged_in?
   end
 
   # タスク新規作成画面の表示

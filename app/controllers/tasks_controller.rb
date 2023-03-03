@@ -28,8 +28,21 @@ class TasksController < ApplicationController
   # タスクの更新
   def update
     @task = Task.find(params[:id])
-    @task.update(task_params)
-    redirect_to tasks_url
+    if @task.update(task_params)
+      redirect_to tasks_url
+    else
+      render 'edit', status: :unprocessable_entity
+    end
+  end
+
+  # タスクの削除
+  def destroy
+    @task = Task.find(params[:id])
+    if @task.destroy
+      redirect_to tasks_url, status: :see_other
+    else
+      render 'index', status: :unprocessable_entity
+    end
   end
 
   private

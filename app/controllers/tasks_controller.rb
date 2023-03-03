@@ -1,27 +1,37 @@
 class TasksController < ApplicationController
+  require 'debug'
+
+  before_action :logged_in_user, only: %i[index new create edit update] # ログイン済みユーザーかどうか確認
+  before_action :correct_user, only: %i[create] # ログイン済みユーザーかどうか確認
+
   # 一覧画面（ログイン中のユーザーのタスク）
   def index
-    @tasks = Task.where(user_id: current_user.id) if logged_in?
+    @tasks = Task.where(user_id: current_user.id)
   end
 
   # タスク新規作成画面の表示
   def new
-    # TODO: ログイン中かどうかの判定
     @task = Task.new # タスクのインスタンスを生成
     @current_user = current_user
   end
 
   # タスク新規作成処理
   def create
-    @task = Task.create(task_params) # タスクのインスタンスを生成
-    # TODO: user_idに一致するユーザーがいるのかの判定
-    redirect_to tasks_path
+    @task = Task.new(task_params) # タスクのインスタンスを生成
+    if @task.save
+      redirect_to tasks_path
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   # タスク編集画面の表示
   def edit
-    @task = Task.find(params[:id]) # リクエストURL内{id}部分の数値をparams[:id]で取り出す
-    # TODO: 不正なidを指定された場合の処理
+    @task = Task.find_by(id: params[:id]) # リクエストURL内{id}部分の数値をparams[:id]で取り出す
+    if !@task || @task.user_id != current_user.id
+      flash[:danger] = 'リクエストが不正です。'
+      redirect_to tasks_path, status: :see_other
+    end
   end
 
   # タスクの更新
@@ -46,7 +56,16 @@ class TasksController < ApplicationController
 
   private
 
+  # Strong Parameter
   def task_params
     params.require(:task).permit(:title, :user_id)
+  end
+
+  # 正しいユーザーかどうか確認
+  def correct_user
+    if current_user.id != params[:user_id]
+      flash[:danger] = 'リクエストが不正です。'
+      redirect_to tasks_path, status: :see_other
+    end
   end
 end

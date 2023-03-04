@@ -1,8 +1,3 @@
-<h2>TODOアプリ</h2>
+<h2 class="mb-4">タスク一覧</h2>
 <%= flash[:danger] %>
-
-<% if logged_in? %>
-  <%= render 'tasks/logged_in' %>
-<% else %>
-  <%= render 'tasks/not_logged_in' %>
-<% end %>
+<%= render 'tasks/tasks' %>

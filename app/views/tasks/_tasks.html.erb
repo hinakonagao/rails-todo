@@ -1,6 +1,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th></th>
       <th>タスク名</th>
       <th>済/未済</th>
       <th>操作</th>
@@ -10,8 +11,13 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
+        <td>
+          <%= form_with model: task, url: task_path(task), method: :patch, data: { turbo: false } do |f| %>
+            <%= f.check_box :finished, onchange: 'this.form.submit();' %>
+          <% end %>
+        </td>
         <td><%= task.title %></td>
-        <td><%= task.finished == Task::FINISHED ? '済' : '未済' %></td>
+        <td><%= task.finished ? '済' : '未済' %></td>
         <td>
           <%= link_to "編集", edit_task_path(task), class: "btn btn-primary mr-2" %>
           <%= link_to "削除", task_path(task), data: { turbo_method: :delete }, class: "btn btn-danger", method: :delete, data: { confirm: "本当に削除しますか？" } %>

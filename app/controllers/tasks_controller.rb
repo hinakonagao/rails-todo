@@ -58,7 +58,7 @@ class TasksController < ApplicationController
 
   # Strong Parameter
   def task_params
-    params.require(:task).permit(:title, :user_id)
+    params.require(:task).permit(:title, :finished, :user_id)
   end
 
   # 正しいユーザーかどうか確認

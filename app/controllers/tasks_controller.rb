@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   require 'debug'
 
   before_action :logged_in_user, only: %i[index new create edit update] # ログイン済みユーザーかどうか確認
-  before_action :correct_user, only: %i[create] # ログイン済みユーザーかどうか確認
+  before_action :correct_user, only: %i[create update] # 正しいユーザーかどうか確認
 
   # 一覧画面（ログイン中のユーザーのタスク）
   def index
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
   # タスクの更新
   def update
     @task = Task.find(params[:id])
-    if @task.update(task_params)
+    if @task.update(task_parms)
       redirect_to tasks_url
     else
       render 'edit', status: :unprocessable_entity

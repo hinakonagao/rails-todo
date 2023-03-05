@@ -5,6 +5,7 @@
     <%= f.label :title %>
     <%= f.text_field :title, class: 'form-control' %>
   </div>
+  <%= f.hidden_field :user_id, value: @current_user.id %>
   <%= render 'shared/errors', object: f.object %>
   <%= f.submit '保存', class: 'btn btn-primary' %>
 <% end %>

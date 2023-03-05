@@ -2,17 +2,21 @@
   <thead>
     <tr>
       <th>タスク名</th>
+      <th>済/未済</th>
       <th>操作</th>
+      <th>作成日時</th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
         <td><%= task.title %></td>
+        <td><%= task.finished == Task::FINISHED ? '済' : '未済' %></td>
         <td>
           <%= link_to "編集", edit_task_path(task), class: "btn btn-primary mr-2" %>
           <%= link_to "削除", task_path(task), data: { turbo_method: :delete }, class: "btn btn-danger", method: :delete, data: { confirm: "本当に削除しますか？" } %>
         </td>
+        <td><%= task.created_at %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,9 +1,45 @@
 {
-  "files.associations": {
-    "*.html.erb": "erb"
+  // 基本的な言語機能のサポート
+  "ruby.useLanguageServer": true,
+
+  // Formatで使用するツールを`bundle exec`で実行するかどうか
+  // ここではグローバルにインストールしたGemを使うのでfalseに指定
+  "ruby.useBundler": false,
+
+  // `Format Document`で使用するフォーマッターにrubocopを指定
+  "ruby.format": "rubocop",
+
+  // Linterにrubocopを指定
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": false
+    }
   },
-  "[erb]": {
-    "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+
+  // 差分を横に並べて表示せずに、行内に表示する
+  "diffEditor.renderSideBySide": false,
+  // ファイル保存時に自動フォーマットする
+  "editor.formatOnSave": true,
+  // 現在の行を強調表示する
+  "editor.renderLineHighlight": "all",
+  // 空白文字を表示する
+  "editor.renderWhitespace": "all",
+  // スペース2個分のインデント
+  "editor.tabSize": 2,
+  // ウィンドウ幅右端で折り返す
+  "editor.wordWrap": "on",
+  // ファイル保存時に新しい行を末尾に挿入する
+  "files.insertFinalNewline": true,
+  // アイコンテーマの指定
+  "workbench.iconTheme": "vscode-icons",
+
+  // Dockerでsolargraphを使用する設定
+  "solargraph.externalServer": {
+    "host": "localhost",
+    "port": 8091
   },
-  "vscode-erb-beautify.useBundler": true
+  "solargraph.transport": "external",
+  "solargraph.logLevel": "debug",
+  "solargraph.diagnostics": true,
+  "solargraph.hover": false
 }

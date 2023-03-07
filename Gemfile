@@ -66,6 +66,7 @@ group :development do
   # gem "spring"
 
   gem 'htmlbeautifier'
+  gem 'solargraph'
 end
 
 group :test do

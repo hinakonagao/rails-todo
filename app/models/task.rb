@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
-  NOT_FINISHED = 0
-  FINISHED = 1
+  belongs_to :user
 
+  validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 50 }
+  validates :finished, presence: true, inclusion: { in: [true, false] }
 end

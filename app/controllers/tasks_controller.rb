@@ -37,7 +37,7 @@ class TasksController < ApplicationController
   # タスクの更新
   def update
     @task = Task.find(params[:id])
-    if @task.update(task_parms)
+    if @task.update(task_params)
       redirect_to tasks_url
     else
       render 'edit', status: :unprocessable_entity

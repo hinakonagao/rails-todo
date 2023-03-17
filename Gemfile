@@ -56,6 +56,9 @@ group :development, :test do
   # テストフレームワーク
   gem "rspec-rails"
   gem "factory_bot_rails"
+  gem "capybara"
+  gem "selenium-webdriver"
+  # gem "webdrivers" Docker上では使用しない
 end
 
 group :development do

@@ -27,3 +27,9 @@ services:
       - .:/myapp
     ports:
       - '8091:7658'
+
+  # capybara
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444

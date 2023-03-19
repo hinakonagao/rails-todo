@@ -7,7 +7,7 @@ RSpec.describe 'Tasks', type: :system do
     context 'ログインしている場合' do
       before do
         @userA = FactoryBot.create(:user, name: 'ユーザーA')
-        @taskA = FactoryBot.create(:task, title: 'タスク1', user_id: @userA.id, finished: ture)
+        @taskA = FactoryBot.create(:task, title: 'タスク1', user_id: @userA.id, finished: false)
       end
 
       it 'ログイン中のユーザーのタスクが表示される' do

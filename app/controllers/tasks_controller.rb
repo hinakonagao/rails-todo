@@ -73,6 +73,9 @@ class TasksController < ApplicationController
   # 自分のタスク以外は編集・削除できないようにする
   def correct_users_task
     @task = Task.find(params[:id])
-    redirect_to(root_url) unless @task.user_id == current_user.id
+    if @task.user_id != current_user.id
+      flash[:danger] = 'リクエストが不正です。'
+      redirect_to root_url, status: :see_other
+    end
   end
 end

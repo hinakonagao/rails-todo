@@ -2,10 +2,21 @@
   <thead>
     <tr>
       <th></th>
-      <th>タスク名</th>
-      <th>済/未済</th>
+      <% def sort_icon(column_name) %>
+        <% if @sort_column == column_name %>
+          <% if @sort_direction == 'asc' %>
+            <i class="fas fa-sort-up"></i>
+          <% else %>
+            <i class="fas fa-sort-down"></i>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <th><%= link_to "タスク名 #{sort_icon('title')}", tasks_path(sort_column: 'title', sort_direction: @sort_column == 'title' && @sort_direction == 'desc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to "済/未済 #{sort_icon('finished')}", tasks_path(sort_column: 'finished', sort_direction: @sort_column == 'finished' && @sort_direction == 'desc' ? 'desc' : 'asc') %></th>
       <th>操作</th>
-      <th>作成日時</th>
+      <th><%= link_to "作成日時 #{sort_icon('created_at')}", tasks_path(sort_column: 'created_at', sort_direction: @sort_column == 'created_at' && @sort_direction == 'desc' ? 'desc' : 'asc') %></th>
+
     </tr>
   </thead>
   <tbody>
@@ -28,5 +39,6 @@
     <% end %>
   </tbody>
 </table>
+
 <%= link_to "タスク追加", new_task_path, class: "btn btn-success mb-4" %>
 <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "btn btn-secondary" %>

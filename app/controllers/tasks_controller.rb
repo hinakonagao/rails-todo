@@ -5,9 +5,17 @@ class TasksController < ApplicationController
   before_action :correct_user_id, only: %i[create update] # リクエストパラメーターのuser_idがログイン中のユーザーのものかどうか確認
   before_action :correct_users_task, only: %i[edit update destroy] # 正しいユーザーのタスクかどうか確認
 
-  # 一覧画面（ログイン中のユーザーのタスク）
+  SORT_COLUMNS = %w[title finished created_at]
+  DEFAULT_SORT_COLUMN = 'created_at'
+  SORT_DIRECTIONS = %w[asc desc]
+  DEFAULT_SORT_DIRECTION = 'desc'
+
+  # 一覧画面（ログイン中のユーザーのタスクのみ表示する）
   def index
-    @tasks = Task.where(user_id: current_user.id)
+    @tasks = Task.where(user_id: @current_user.id).order("#{sort_column}")
+
+    @sort_column = params[:sort_column]
+    @sort_direction = params[:sort_direction] == 'asc' ? 'desc' : 'asc'
   end
 
   # タスク新規作成画面の表示
@@ -76,6 +84,15 @@ class TasksController < ApplicationController
     if @task.user_id != current_user.id
       flash[:danger] = 'リクエストが不正です。'
       redirect_to root_url, status: :see_other
+    end
+  end
+
+  # ソートするカラムと順序の指定（無効な値の場合はデフォルト値を返す）
+  def sort_column
+    if SORT_COLUMNS.include?(params[:sort_column]) && SORT_DIRECTIONS.include?(params[:sort_direction])
+      "#{params[:sort_column]} #{params[:sort_direction]}"
+    else
+      "#{DEFAULT_SORT_COLUMN} #{DEFAULT_SORT_DIRECTION}"
     end
   end
 end

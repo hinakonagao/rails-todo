@@ -12,7 +12,9 @@ class TasksController < ApplicationController
 
   # 一覧画面（ログイン中のユーザーのタスクのみ表示する）
   def index
-    @tasks = Task.where(user_id: @current_user.id).order("#{sort_column}")
+    @tasks = Task.where(user_id: @current_user.id)
+    @tasks = @tasks.where('title LIKE ?', "%#{params[:word]}%") if params[:word]
+    @tasks = @tasks.order(sort_column)
 
     @sort_column = params[:sort_column]
     @sort_direction = params[:sort_direction]

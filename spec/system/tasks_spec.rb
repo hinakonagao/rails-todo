@@ -12,19 +12,35 @@ RSpec.describe 'Tasks', type: :system do
         @taskB = FactoryBot.create(:task, title: 'タスク2', user_id: @userB.id, finished: false)
       end
 
-      it 'ログイン中のユーザーのタスクが表示される' do
-        login(@userA)
-        visit tasks_path
-        expect(current_path).to eq tasks_path
-        expect(page).to have_content 'タスク一覧'
-        expect(page).to have_content 'タスク1'
+      context 'ログイン中のユーザーのタスクかどうかの確認' do
+        it 'ログイン中のユーザーのタスクが表示される' do
+          login(@userA)
+          visit tasks_path
+          expect(current_path).to eq tasks_path
+          expect(page).to have_content 'タスク一覧'
+          expect(page).to have_content 'タスク1'
+        end
+
+        it '他のユーザーのタスクが表示されない' do
+          login(@userA)
+          visit tasks_path
+          expect(page).to have_content 'タスク一覧'
+          expect(page).to have_no_content 'タスク2'
+        end
       end
 
-      it '他のユーザーのタスクが表示されない' do
-        login(@userA)
-        visit tasks_path
-        expect(page).to have_content 'タスク一覧'
-        expect(page).to have_no_content 'タスク2'
+      context 'タスクのソート機能' do
+        it 'タスク名の昇順でソートできる' do
+          # TODO:ソート機能のテストを実装する
+          login(@userA)
+          visit tasks_path
+          click_on 'タスク名'
+          expect(page).to have_content 'タスク1'
+        end
+      end
+
+      context 'タスク名の検索機能' do
+        # TODO:タスク名の検索機能のテストを実装する
       end
     end
 

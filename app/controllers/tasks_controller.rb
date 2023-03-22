@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     @tasks = Task.where(user_id: @current_user.id).order("#{sort_column}")
 
     @sort_column = params[:sort_column]
-    @sort_direction = params[:sort_direction] == 'asc' ? 'desc' : 'asc'
+    @sort_direction = params[:sort_direction]
   end
 
   # タスク新規作成画面の表示

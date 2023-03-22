@@ -3,35 +3,17 @@
     <tr>
       <th></th>
       <th>
-        <%= link_to "タスク名", tasks_path(sort_column: 'title', sort_direction: @sort_column == 'title' && @sort_direction == 'desc' ? 'desc' : 'asc') %>
-        <% if @sort_column == 'title' %>
-          <% if @sort_direction == 'asc' %>
-            <i class="fas fa-sort-up"></i>
-          <% else %>
-            <i class="fas fa-sort-down"></i>
-          <% end %>
-        <% end %>
+        <%= link_to "タスク名", tasks_path(sort_column: 'title', sort_direction: @sort_column == 'title' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+        <%= sort_icon('title') %>
       </th>
       <th>
-        <%= link_to "済/未済 ", tasks_path(sort_column: 'finished', sort_direction: @sort_column == 'finished' && @sort_direction == 'desc' ? 'desc' : 'asc') %>
-        <% if @sort_column == 'finished' %>
-          <% if @sort_direction == 'asc' %>
-            <i class="fas fa-sort-up"></i>
-          <% else %>
-            <i class="fas fa-sort-down"></i>
-          <% end %>
-        <% end %>
+        <%= link_to "済/未済 ", tasks_path(sort_column: 'finished', sort_direction: @sort_column == 'finished' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+        <%= sort_icon('finished') %>
       </th>
-      <th>操作</th>
+      <th></th>
       <th>
-        <%= link_to "作成日時", tasks_path(sort_column: 'created_at', sort_direction: @sort_column == 'created_at' && @sort_direction == 'desc' ? 'desc' : 'asc') %>
-        <% if @sort_column == 'created_at' %>
-          <% if @sort_direction == 'asc' %>
-            <i class="fas fa-sort-up"></i>
-          <% else %>
-            <i class="fas fa-sort-down"></i>
-          <% end %>
-        <% end %>
+        <%= link_to "作成日時", tasks_path(sort_column: 'created_at', sort_direction: @sort_column == 'created_at' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+        <%= sort_icon('created_at') %>
       </th>
     </tr>
   </thead>

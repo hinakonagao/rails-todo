@@ -12,8 +12,11 @@ class TasksController < ApplicationController
 
   # 一覧画面（ログイン中のユーザーのタスクのみ表示する）
   def index
+    p params
     @tasks = Task.where(user_id: @current_user.id)
-    @tasks = @tasks.where('title LIKE ?', "%#{params[:word]}%") if params[:word]
+    @tasks = @tasks.where('title LIKE ?', "%#{params[:word]}%") if params[:word] && params[:word] != ''
+    @tasks = @tasks.where('created_at > ?', params[:start_date]) if params[:start_date] && params[:start_date] != ''
+    @tasks = @tasks.where('created_at < ?', params[:end_date]) if params[:end_date] && params[:end_date] != ''
     @tasks = @tasks.order(sort_column)
 
     @sort_column = params[:sort_column]
